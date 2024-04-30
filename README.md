@@ -24,6 +24,8 @@ The acquirer function, as is illustrated above, reads the metadata of the MRI an
 ## Converter
 The objective of this project was to use segmented images to train U-Net based neural network. In order to achieve this both the images and the segments must be stored in the same format. To overcome this, the converter script creates a copy of all images in a directory as a NIfTI file. This function retains both the DICOM file and the newly generated NIfTI file. 
 
+![Flow chart of the information contained in a UK-Biobank download with the image data relevant to this study highlighted](/Documents/Assets/ukb_flowchart.png)
+
 # Application
 We believe that this package and the included function will be extremley benefical to the research community. The most evident application is the analysis of the UKB, however with small alterations to the code, and an undertsnading of the image formats, these functions could be applied to any large scale 3D radiological databases. These fucntions automate what is a repetitive task in this type of research and can also do it in a fraction of the time, saving time and resources. The entire pipeline from start to finish takes approx. 11.1 seconds per pateint. This could not be achieved at this speed manually. 
 
