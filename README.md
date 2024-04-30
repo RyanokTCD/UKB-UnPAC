@@ -8,7 +8,7 @@ UKB-UnPAC offers an all-in-one system, designed to reduce the workload from extr
 * Acquire only anatomically relevant images from the UK-Biobank imaging datasets.
 * Convert these images into a more research friendly format.
 
-![Schematic diagram of the UKN-UnPAC process, highlighting inputs, outputs, and the 4 key processes](/Documents/Assets/Pipelinediagram.png)
+![Schematic diagram of the UKN-UnPAC process, highlighting inputs, outputs, and the 4 key processes](/Documents/Assets/Pipeline_diagram.png)
 
 More detail on each of the processes are detailed below. Usage instructions can be found in (LINK)
 
