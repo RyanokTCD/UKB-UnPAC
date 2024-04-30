@@ -7,3 +7,5 @@ UKB-UnPAC offers an all-in-one system, designed to reduce the workload from extr
 * Parse those DICOM files based on researcher set variables.
 * Acquire only anatomically relevant images from the UK-Biobank imaging datasets.
 * Convert these images into a more research friendly format.
+
+
