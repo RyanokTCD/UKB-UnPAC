@@ -1,3 +1,11 @@
+<picture>
+ <source media="(prefers-color-scheme: dark)" srcset="Documents/Assets/Dark_mode.jpg">
+ <source media="(prefers-color-scheme: light)" srcset="Documents/Assets/Light_mode.jpg">
+ <img alt="UKB-UnPAC" src="Documents/Assets/Light_mode.jpg">
+</picture>
+
+
+
 # Welcome to UKB-UnPAC!
 UKB-UnPAC is a Python package dedicated to the extraction of curated image data from the UK-Biobank. Developed by researchers in Trinity College Dublin’s Discipline of Radiation Therapy, as part of a project funded by the **World Cancer Research Fund** (WCRF). The funded project aimed to extract radiomics information from the Dixon weighted MRIs found in the UK-Biobank after being granted access. Considering the vastness of the data available an automated pipline was needed to streamline the acquisition of useful data from the UK-Biobank. This gave rise to UKB-UnPAC!
 
