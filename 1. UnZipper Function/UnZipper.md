@@ -40,4 +40,4 @@ location.
         os.remove(filename) 
     print("Done")
 ```
-The final loop in this fucntion removes the remaining .zip files and prints the word "Done".
+The final loop in this function removes the remaining .zip files and prints the word "Done".
