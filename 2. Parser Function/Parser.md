@@ -12,6 +12,6 @@ The Parser function takes 3 inputs:
 
   **ID_variable_name** - The patient or image specific identifier used in the df and to name the images. Specify the name of the column containing the unique patient or image id as it is in the df e.g "Patient medical number".
 
-  As with the UnZipper function these inputs can be put directly into the function or stored as vairables and called in the function.
+  As with the UnZipper, these inputs can be put directly into the function or stored as vairables and called in the function.
 
-  ## Usage
+## Usage
