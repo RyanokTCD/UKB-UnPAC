@@ -32,8 +32,7 @@ The last line creates a variable that is a combination of the pattern and path t
             print(os.path.join(root, filename))
             zipfile.ZipFile(os.path.join(root, filename)).extractall(os.path.join(root, os.path.splitext(filename)[0]))
 ```
-The first two for loops in the script iteritley go through the contents of the Path and identify those in the Path that match the specified file type (.zip). After its done this it unzips and extracts the contents to the same
-location.
+The first two for loops in the script iteratively go through the contents of the Path and identify those in the Path that match the specified file type (.zip). After its done this it unzips and extracts the contents to the same location.
 
 ```python
     for filename in glob.glob(src_zip):
