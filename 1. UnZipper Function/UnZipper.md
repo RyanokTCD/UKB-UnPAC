@@ -23,7 +23,7 @@ The function will print the word "Done" once it has unzipped all files in the gi
     pattern = '*.zip'
     src_zip = rootPath + "\*.zip"
 ```
-The first section of the UnZipper function sets out what we're looking for and where we are looking for it. In this case we are looking in the Path directory and we are secifying that we are looking for .zip files.
+The first section of the UnZipper function sets out what we're looking for and where we are looking for it. In this case we are looking in the Path directory and we are specifying that we are looking for .zip files.
 The last line creates a variable that is a combination of the pattern and path to allow us to delete unused files later.
 
 ```python
