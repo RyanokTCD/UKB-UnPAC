@@ -10,11 +10,11 @@ import time
 def UnZipper (Path):
     rootPath = Path
     pattern = '*.zip'
-    src_zip = rootPath + "\*.zip"
     for root, dirs, files in os.walk(rootPath):
         for filename in fnmatch.filter(files, pattern):
             print(os.path.join(root, filename))
             zipfile.ZipFile(os.path.join(root, filename)).extractall(os.path.join(root, os.path.splitext(filename)[0]))
-    for filename in glob.glob(src_zip):
-        os.remove(filename) 
+        for file in files:
+            if file.endswith(".zip"):
+                os.remove(os.path.join(root, file))
     print("Done")
