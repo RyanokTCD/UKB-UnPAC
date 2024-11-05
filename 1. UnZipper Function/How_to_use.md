@@ -19,15 +19,12 @@ The function will print the word "Done" once it has unzipped all files in the gi
 
 ## The UnZipper script:
 ```python
-    rootPath = Path
     pattern = '*.zip'
-    src_zip = rootPath + "\*.zip"
 ```
 The first section of the UnZipper function sets out what we're looking for and where we are looking for it. In this case we are looking in the Path directory and we are specifying that we are looking for .zip files.
-The last line creates a variable that is a combination of the pattern and path to allow us to delete unused files later.
 
 ```python
-    for root, dirs, files in os.walk(rootPath):
+    for root, dirs, files in os.walk(Path):
         for filename in fnmatch.filter(files, pattern):
             print(os.path.join(root, filename))
             zipfile.ZipFile(os.path.join(root, filename)).extractall(os.path.join(root, os.path.splitext(filename)[0]))
@@ -35,8 +32,9 @@ The last line creates a variable that is a combination of the pattern and path t
 The first two for loops in the script iteratively go through the contents of the Path and identify those in the Path that match the specified file type (.zip). After its done this it unzips and extracts the contents to the same location.
 
 ```python
-    for filename in glob.glob(src_zip):
-        os.remove(filename) 
+        for file in files:
+            if file.endswith(".zip"):
+                os.remove(os.path.join(root, file))
     print("Done")
 ```
-The final loop in this function removes the remaining .zip files and prints the word "Done".
+The final loop in this function removes the remaining .zip files and prints the word "Done". Be aware THIS WILL REMOVE ALL ZIP FILES IN YOUR DIRECTORY. If you want to retain both the zip and unzipped versions remove this section from the function.
