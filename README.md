@@ -33,6 +33,7 @@ The acquirer function, as is illustrated above, reads the metadata of the MRI an
 The objective of this project was to use segmented images to train U-Net based neural network. In order to achieve this both the images and the segments must be stored in the same format. To overcome this, the converter script creates a copy of all images in a directory as a NIfTI file. This function retains both the DICOM file and the newly generated NIfTI file. 
 
 ![Flow chart of the information contained in a UK-Biobank download with the image data relevant to this study highlighted](/Documents/Assets/ukb_flowchart.png)
+
 The above diagram shows the extent of the imaging data available on the UKB vs the data needed (highlighted nodes). UnPAC allows the researcher to dictate how much of this data they store.
 
 # Application
