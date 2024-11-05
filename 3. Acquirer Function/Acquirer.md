@@ -86,10 +86,12 @@ with the desired series description. The reason it takes both into consideration
 series number 10 if it does not also fit the description it is likley that it is of the wrong anatomical area. The Acquirer function accounts for this and removes images that do not fit the series number requirement **and**
 the series descriptor requirment.
 ````python
-    for filename in glob.glob(Path_dcm):
-        os.remove(filename)
+    for root, dirs, files in os.walk(Path):
+        for file in files:
+            if file.startswith("1.3."):
+                os.remove(os.path.join(root, file))
     print("Done")
     print("--- %s seconds per patient ---" % ((time.time()-start_time)/len(os.listdir(Path))))
 ````
-The final part of the removes the latent DICOM images, those that have not been specified by the researcher. It will then output the string "Done" as well as how long the function took to preform the task per patient in the
-dataset. 
+The final part of the removes the latent DICOM images, those that have not been specified by the researcher. It will then output the string "Done" as well as how long the function took to preform the task per patient in the dataset. 
+In the case of the biobank, all DICOM images by default star with "1.3.", where as the images that are Acquired by this script are renamed. This variable can be changed for use with other large datasets assuming the naming pattern is known.
