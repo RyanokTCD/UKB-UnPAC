@@ -71,7 +71,9 @@ def Acquirer(Path, Series_Number, Series_Description):
                 ds.save_as(os.path.join(loc_dicom, studyDate, studyDescription, seriesDescription, fileName))
                 count = count +1
     
-    for filename in glob.glob(Path_dcm):
-        os.remove(filename)
+        for root, dirs, files in os.walk(Path):
+            for file in files:
+                if file.startswith("1.3."):
+                    os.remove(os.path.join(root, file))
     print("Done")
     print("--- %s seconds per patient ---" % ((time.time()-start_time)/len(os.listdir(Path))))   
