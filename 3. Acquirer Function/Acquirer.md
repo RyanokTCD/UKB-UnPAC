@@ -94,4 +94,4 @@ the series descriptor requirment.
     print("--- %s seconds per patient ---" % ((time.time()-start_time)/len(os.listdir(Path))))
 ````
 The final part of the removes the latent DICOM images, those that have not been specified by the researcher. It will then output the string "Done" as well as how long the function took to preform the task per patient in the dataset. 
-In the case of the biobank, all DICOM images by default star with "1.3.", where as the images that are Acquired by this script are renamed. This variable can be changed for use with other large datasets assuming the naming pattern is known.
+In the case of the biobank, all DICOM images by default start with "1.3.", where as the images that are Acquired by this script are renamed. This variable can be changed for use with other large datasets assuming the naming pattern is known.
