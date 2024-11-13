@@ -1,20 +1,16 @@
-import pandas as pd
-import zipfile,fnmatch,os
-import glob
+import os
 import shutil
-import dicom2nifti # to convert DICOM files to the NIftI format
-import pydicom
-import time 
 
 #Parser-----------------------------------------------------------------------------------------------------------------------------------
 
-def Parser(Path, Exclusion_df, ID_variable_name):
-    eid = Exclusion_df[ID_variable_name].values.tolist()
-    eid = str(eid)
-    os.chdir(Path)
-    try:
-        for dirname in os.listdir(Path):
-            if dirname[:7] not in eid:
-                shutil.rmtree(dirname)
-    except NotADirectoryError:
-        print("Done")
+def parser(path, exclusion_df, id_variable_name):
+    # Convert exclusion list to a set for faster lookup
+    excluded_ids = set(exclusion_df[id_variable_name].astype(str))
+
+    for dirname in os.listdir(path):
+        dir_path = os.path.join(path, dirname)
+        # Check if it is a directory and not in the exclusion list
+        if os.path.isdir(dir_path) and dirname[:7] not in excluded_ids:
+            shutil.rmtree(dir_path)
+
+    print("Parsing complete")
