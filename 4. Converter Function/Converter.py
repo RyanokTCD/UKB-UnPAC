@@ -1,18 +1,15 @@
-#dependencies------------------------------------------------------------------------------------------------------------------------------
-import pandas as pd
-import zipfile,fnmatch,os
-import glob
-import shutil
-import dicom2nifti # to convert DICOM files to the NIftI format
-import pydicom
-import time 
+import dicom2nifti
 
 #Converter--------------------------------------------------------------------------------------------------------------------------------
-def Converter (Path):
-    count = 0
-    os.chdir(Path)
-    for dirname in os.listdir(Path):
-        dicom2nifti.convert_directory(dirname, dirname)
-        count = count +1
-        print("%s has been converted to NIfTI format (%s/%s)" % (dirname, count, len(os.listdir(Path))) )
-    print("Done")
+def converter(path):
+    path = Path(path)
+    directories = [d for d in path.iterdir() if d.is_dir()]
+    
+    for count, dirname in enumerate(directories, start=1):
+        try:
+            dicom2nifti.convert_directory(dirname, dirname)
+            print(f"{dirname.name} has been converted to NIfTI format ({count}/{len(directories)})")
+        except Exception as e:
+            print(f"Failed to convert {dirname.name}: {e}")
+
+    print("Conversion complete.")
