@@ -1,79 +1,76 @@
-import pandas as pd
-import zipfile,fnmatch,os
-import glob
-import shutil
-import dicom2nifti # to convert DICOM files to the NIftI format
+import time
 import pydicom
-import time 
+from pathlib import Path
 
 #Attainer---------------------------------------------------------------------------------------------------------------------------------
 
 def clean_text(string):
-    # clean and standardize text descriptions, which makes searching files easier
-    forbidden_symbols = ["*", ".", ",", "\"", "\\", "/", "|", "[", "]", ":", ";", " "]
-    for symbol in forbidden_symbols:
-        string = string.replace(symbol, "_") # replace everything with an underscore
-    return string.lower()  
+    import re
+    forbidden_pattern = r"[*.,\"\\/\[\]|:; ]"
+    return re.sub(forbidden_pattern, "_", string).lower()
 
-def Acquirer(Path, Series_Number, Series_Description):
+def acquirer(path, series_numbers, series_descriptions):
     start_time = time.time()
-    count = 1
-    Path_dcm = Path + "\\**\\*.dcm"
-    for i in os.listdir(Path):
-        print('reading file list...')
-        unsortedList = []
-        for root, dirs, files in os.walk(Path):
-            for file in files: 
-                if ".dcm" in file:# exclude non-dicoms, good for messy folders
-                    unsortedList.append(os.path.join(root, file))
-    
-        print('%s files found.' % len(unsortedList))
-    
-    for dicom_loc in unsortedList:
-        # read the file
-        loc_dicom = os.path.dirname(dicom_loc)
-        ds = pydicom.read_file(dicom_loc, force=True)
-        # get patient, study, and series information
-        patientID = os.path.basename(Path)
-        studyDate = clean_text(ds.get("StudyDate", "NA"))
-        studyDescription = clean_text(ds.get("StudyDescription", "NA"))
-        seriesDescription = clean_text(ds.get("SeriesDescription", "NA"))
-        seriesNumber = ds.get("SeriesNumber", "NA")
-          
-            # generate new, standardized file name
-        modality = ds.get("Modality","NA")
-        seriesInstanceUID = ds.get("SeriesInstanceUID","NA")
-        instanceNumber = str(ds.get("InstanceNumber","0"))
-        fileName = modality + "." + seriesInstanceUID + "." + instanceNumber + ".dcm"
-               
-            # uncompress files (using the gdcm package)
+    path = Path(path)
+
+    # Collect all initial DICOM files
+    dicom_files = list(path.rglob("*.dcm"))
+    print(f'{len(dicom_files)} DICOM files found.')
+
+    count = 0
+    files_to_delete = []  # Track original files that don't meet the criteria
+
+    for dicom_loc in dicom_files:
         try:
-            ds.decompress()
-        except:
-            print('an instance in file %s - %s - %s - %s" could not be decompressed. exiting.' % (patientID, studyDate, studyDescription, seriesDescription ))
+            # Read the DICOM file
+            ds = pydicom.dcmread(dicom_loc, force=True)
+
+            # Extract metadata fields
+            series_number = ds.get("SeriesNumber", "NA")
+            series_description = clean_text(ds.get("SeriesDescription", "NA"))
+
+            # Check if file meets criteria for renaming
+            if series_number in series_numbers and series_description in series_descriptions:
                 
-        if seriesNumber in Series_Number:
-            if seriesDescription in Series_Description:
-                if not os.path.exists(os.path.join(loc_dicom)):
-                    os.makedirs(os.path.join(loc_dicom))
-                   
-                if not os.path.exists(os.path.join(loc_dicom, studyDate)):
-                    os.makedirs(os.path.join(loc_dicom, studyDate))
-                       
-                if not os.path.exists(os.path.join(loc_dicom, studyDate, studyDescription)):
-                    os.makedirs(os.path.join(loc_dicom, studyDate, studyDescription))
-                       
-                if not os.path.exists(os.path.join(loc_dicom, studyDate, studyDescription, seriesDescription)):
-                    os.makedirs(os.path.join(loc_dicom, studyDate, studyDescription, seriesDescription))
-                    print('Saving out file: %s - %s - %s - %s.' % (patientID, studyDate, studyDescription, seriesDescription ))
-                    print('%s files out of %s total files extracted.' % (count, len(unsortedList)))
-                       
-                ds.save_as(os.path.join(loc_dicom, studyDate, studyDescription, seriesDescription, fileName))
-                count = count +1
-    
-        for root, dirs, files in os.walk(Path):
-            for file in files:
-                if file.startswith("1.3."):
-                    os.remove(os.path.join(root, file))
+                # Generate standardized filename
+                modality = ds.get("Modality", "NA")
+                series_instance_uid = ds.get("SeriesInstanceUID", "NA")
+                instance_number = str(ds.get("InstanceNumber", "0"))
+                file_name = f"{modality}.{series_instance_uid}.{instance_number}.dcm"
+                
+                # Set the save path to the original file's location with the new filename
+                save_path = dicom_loc.with_name(file_name)
+
+                # Decompress if needed
+                try:
+                    ds.decompress()
+                except Exception as e:
+                    print(f"File {dicom_loc} could not be decompressed: {e}")
+                    continue
+
+                # Save the file in the original directory with the standardized name
+                ds.save_as(save_path)
+                count += 1
+                print(f"Saved file: {save_path.name} ({count} of {len(dicom_files)})")
+
+                # If the original and saved paths differ, add original to delete list
+                if save_path != dicom_loc:
+                    files_to_delete.append(dicom_loc)
+
+            else:
+                # If file does not meet criteria, add to delete list
+                files_to_delete.append(dicom_loc)
+
+        except Exception as e:
+            print(f"Error processing file {dicom_loc}: {e}")
+
+    # Remove all files in files_to_delete list
+    for file_path in files_to_delete:
+        try:
+            file_path.unlink()  # Safely remove unmatched .dcm files
+        except FileNotFoundError:
+            pass  # Ignore if the file has already been deleted
+
     print("Done")
-    print("--- %s seconds per patient ---" % ((time.time()-start_time)/len(os.listdir(Path))))   
+    avg_time = (time.time() - start_time) / (len(dicom_files) or 1)
+    print(f"--- {avg_time:.2f} seconds per file ---")
