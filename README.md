@@ -7,7 +7,7 @@
 
 
 # Welcome to UnPAC!
-UnPAC is a Python package dedicated to the extraction of curated image data from the UK-Biobank. Developed by researchers in Trinity College Dublin’s Discipline of Radiation Therapy, as part of a project funded by the **World Cancer Research Fund** (WCRF). The funded project aimed to extract radiomics information from the Dixon weighted MRIs found in the UK-Biobank after being granted access. Considering the vastness of the data available an automated pipline was needed to streamline the acquisition of useful data from the UK-Biobank. This gave rise to UKB-UnPAC!
+UnPAC is a Python package dedicated to the extraction of curated image data from the UK-Biobank. Developed by researchers in Trinity College Dublin’s Discipline of Radiation Therapy, as part of a project funded by the **World Cancer Research Fund** (WCRF). The funded project aimed to extract radiomics information from the Dixon weighted MRIs found in the UK-Biobank after being granted access. Considering the vastness of the data available an automated pipline was needed to streamline the acquisition of useful data from the UK-Biobank. This gave rise to UnPAC!
 
 # What is UnPAC?
 UnPAC offers an all-in-one system, designed to reduce the workload from extracting image data from the UK-Biobank, but can be adapted for any large scale radiological dataset. UKB-UnPAC has 4 main scripts which are its name sake, that allows researchers to:
@@ -41,5 +41,3 @@ The above diagram shows the extent of the imaging data available on the UKB vs t
 We believe that this package and the included function will be extremley benefical to the research community. The most evident application is the analysis of the UKB, however with small alterations to the code, and an undertsnading of the image formats, these functions could be applied to any large scale 3D radiological databases. These fucntions automate what is a repetitive task in this type of research and can also do it in a fraction of the time, saving time and resources. The entire pipeline from start to finish takes approx. 11.1 seconds per pateint. This could not be achieved at this speed manually. 
 
 Version 3.1 boasts an increased spped being able to preform the full UnPAC process in less than 5 seconds per patient.
-
-For more information visit the usage document on how to apply it to your own research. 
