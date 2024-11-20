@@ -28,7 +28,7 @@ The parser function allows researchers to filter which data to parse based on a 
 
 ## Acquirer
 The acquirer function, as is illustrated above, reads the metadata of the MRI and splits the full body MRI into its component parts based on the name of the series and the series number. This can be changed to allow for scans of different anatomical areas to be retained. The acquirer function reads the metadata, organizes the files in a neater pathway, based on the work of Dr. Alexandor Weston, PhD
-(Accessed at: [https://to-126wardsdatascience.com/a-python-script-to-sort-dicom-files-f1623a7f40b8] on 17/04/2024). The acquirer function then discards the unspecified images, to reduce data storage requirments. The final product is a file pathway containing a 3D image of only the region of interest, in a specified weight from a specified series. 
+(Accessed at: [[https://to-126wardsdatascience.com/a-python-script-to-sort-dicom-files-f1623a7f40b8]](https://towardsdatascience.com/a-python-script-to-sort-dicom-files-f1623a7f40b8) on 17/04/2024). The acquirer function then discards the unspecified images, to reduce data storage requirments. The final product is a file pathway containing a 3D image of only the region of interest, in a specified weight from a specified series. 
 
 ## Converter
 The objective of this project was to use segmented images to train U-Net based neural network. In order to achieve this both the images and the segments must be stored in the same format. To overcome this, the converter script creates a copy of all images in a directory as a NIfTI file. This function retains both the DICOM file and the newly generated NIfTI file. 
