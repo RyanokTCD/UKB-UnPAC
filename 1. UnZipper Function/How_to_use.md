@@ -1,4 +1,4 @@
-# UnZipper
+# unipper
 
 ## Inputs:
 The Unzipper function only takes one input `Path`. Path refers to the location of the files that you intend to run UnPac on, and is usually in the format of;
@@ -6,12 +6,12 @@ The Unzipper function only takes one input `Path`. Path refers to the location o
 
 You can enter this path directly into the function: 
 ```python
-Unzipper(r"C:\User\You\Downloaded_images")
+unzipper(r"C:\User\You\Downloaded_images")
 ``` 
 or you can store the path as a variable to save yourself having to retype it each time:
 ```python
 Path = r"C:\User\You\Downloaded_images"
-Unzipper(Path)
+unzipper(Path)
 ```
 Both will result in the same output. 
 
@@ -24,17 +24,19 @@ The function will print the word "Done" once it has unzipped all files in the gi
 The first section of the UnZipper function sets out what we're looking for and where we are looking for it. In this case we are looking in the Path directory and we are specifying that we are looking for .zip files.
 
 ```python
-    for root, dirs, files in os.walk(Path):
+    for root, _, files in os.walk(path):
         for filename in fnmatch.filter(files, pattern):
-            print(os.path.join(root, filename))
-            zipfile.ZipFile(os.path.join(root, filename)).extractall(os.path.join(root, os.path.splitext(filename)[0]))
+            zip_path = os.path.join(root, filename)
+            extract_dir = os.path.join(root, os.path.splitext(filename)[0])
+
+            with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+                zip_ref.extractall(extract_dir)
 ```
 The first two for loops in the script iteratively go through the contents of the Path and identify those in the Path that match the specified file type (.zip). After its done this it unzips and extracts the contents to the same location.
 
 ```python
-        for file in files:
-            if file.endswith(".zip"):
-                os.remove(os.path.join(root, file))
-    print("Done")
+            os.remove(zip_path)
+
+    print("Unzipping complete")
 ```
-The final loop in this function removes the remaining .zip files and prints the word "Done". Be aware THIS WILL REMOVE ALL ZIP FILES IN YOUR DIRECTORY. If you want to retain both the zip and unzipped versions remove this section from the function.
+The final part in this function removes the remaining .zip files and prints "Unzipping complete". Be aware THIS WILL REMOVE ALL ZIP FILES IN YOUR DIRECTORY. If you want to retain both the zip and unzipped versions remove this section from the function.
