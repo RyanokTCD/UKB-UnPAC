@@ -27,3 +27,24 @@
 | 22  | Inferior upper legs (R+L)  | No  | Out-of-Phase  |
 | 23  | Inferior upper legs (R+L)  | No  | Fat-Weighted  |
 | 24  | Inferior upper legs (R+L)  | No  | Water-Weighted  |
+
+## All series sites
+![All sites approximation of scan range](/Documents/Assets/All_sites.png)
+
+## Neck and shoulders:
+![Neck and shoulders](/Documents/Assets/Head_shoulders.png)
+
+## Thorax:
+![Thorax](/Documents/Assets/Thorax.png)
+
+## Abdomen:
+![Abdo](/Documents/Assets/Abdo.png)
+
+## Pelvis:
+![Pelvis](/Documents/Assets/Pelvis.png)
+
+## Upper leg 1:
+![Leg1](/Documents/Assets/Leg1.png)
+
+## Upper leg 2:
+![Leg2](/Documents/Assets/Leg2.png)
