@@ -1,4 +1,4 @@
-# unipper
+# unizpper
 
 ## Inputs:
 The Unzipper function only takes one input `Path`. Path refers to the location of the files that you intend to run UnPac on, and is usually in the format of;
