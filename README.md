@@ -40,4 +40,4 @@ The above diagram shows the extent of the imaging data available on the UKB vs t
 # Application
 We believe that this package and the included function will be extremley benefical to the research community. The most evident application is the analysis of the UKB, however with small alterations to the code, and an undertsnading of the image formats, these functions could be applied to any large scale 3D radiological databases. These fucntions automate what is a repetitive task in this type of research and can also do it in a fraction of the time, saving time and resources. The entire pipeline from start to finish takes approx. 11.1 seconds per pateint. This could not be achieved at this speed manually. 
 
-Version 3.2 boasts an increased spped being able to preform the full UnPAC process in less than 5 seconds per patient.
+Version 3.2 boasts an increased speed being able to preform the full UnPAC process in less than 5 seconds per patient.
